@@ -1,6 +1,4 @@
-
 function init() {
-    const slider = document.querySelector(".slider");
     const nextBtn = document.querySelector(".slider .nav .next");
     const prevBtn = document.querySelector(".slider .nav .prev");
     const items = document.querySelectorAll(".slider .item");
@@ -11,7 +9,6 @@ function init() {
         const textWrapper = item.querySelector(".wrap");
         textWrapper.innerHTML = textWrapper.innerHTML.replace(/\S/g, "<span class='letter'>$&</span>");
     });
-
 
     function anim(current, next, callback) {
         const currentImgs = current.querySelectorAll(".img");
@@ -26,57 +23,67 @@ function init() {
         const tl = anime.timeline({
             easing: "easeInOutQuint",
             duration: t,
-            complete: callback
+            complete: callback,
         });
 
-        tl
-            .add({
-                targets: currentText,
-                translateY: [0, '-2em'],
-                opacity: [1, 0],
-                ease: "easeInQuint",
-                duration: t,
-                delay: (el, i) => 30 * (i + 1),
-            })
-            .add({
-                targets: currentImgs[0],
-                translateY: -600,
-                translateZ: 0,
-                rotate: [0, '-45deg'],
-                opacity: [1, 0],
-                easing: "easeInCubic"
-            }, imgOffset)
+        tl.add({
+            targets: currentText,
+            translateY: [0, "-2em"],
+            opacity: [1, 0],
+            ease: "easeInQuint",
+            duration: t,
+            delay: (el, i) => 30 * (i + 1),
+        })
+            .add(
+                {
+                    targets: currentImgs[0],
+                    translateY: -600,
+                    translateZ: 0,
+                    rotate: [0, "-45deg"],
+                    opacity: [1, 0],
+                    easing: "easeInCubic",
+                },
+                imgOffset
+            )
             .add({
                 targets: current,
                 opacity: 0,
                 visibility: "hidden",
                 duration: 200,
-                easing: "easeInCubic"
+                easing: "easeInCubic",
             })
-            .add({
-                targets: next,
-                opacity: 1,
-                visibility: "visible",
-                duration: 200,
-
-            }, offset)
-            .add({
-                targets: nextImgs[0],
-                translateY: [600, 0],
-                translateZ: 0,
-                rotate: ["45deg", 0],
-                opacity: [0, 1],
-                easing: "easeOutCubic"
-            }, imgOffset)
-            .add({
-                targets: nextText,
-                translateY: ["2em", 0],
-                translateZ: 0,
-                opacity: [0, 1],
-                easing: "easeOutQuint",
-                duration: t * 1.5,
-                delay: (el, i) => 30 + (i + 1)
-            }, offset);
+            .add(
+                {
+                    targets: next,
+                    opacity: 1,
+                    visibility: "visible",
+                    duration: 200,
+                },
+                offset
+            )
+            .add(
+                {
+                    targets: nextImgs[0],
+                    translateY: [600, 0],
+                    translateZ: 0,
+                    rotate: ["45deg", 0],
+                    opacity: [0, 1],
+                    easing: "easeOutCubic",
+                },
+                imgOffset
+            )
+            .add(
+                {
+                    targets: nextText,
+                    translateY: ["2em", 0],
+                    translateZ: 0,
+                    opacity: [0, 1],
+                    easing: "easeOutQuint",
+                    duration: t * 1.5,
+                    delay: (el, i) => 30 + (i + 1),
+                },
+                offset
+            );
     }
 
     let isPlaying = false;
@@ -117,39 +124,3 @@ function init() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
